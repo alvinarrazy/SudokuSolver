@@ -1,5 +1,3 @@
-import java.io.Console;
-import java.util.*;
 import java.util.Arrays;
 
 public class SudokuSolver {
@@ -43,11 +41,12 @@ public class SudokuSolver {
     }
 
     public static String[] findEmptySlots(int[][] sudoku){
+        int sudokuSize = sudoku[0].length;
         String[] emptySlots = {};
         String axisX = "";
         String axisY = "";
-        for(int i=0;i<4;i++){
-            for(int j=0;j<4;j++){
+        for(int i=0;i<sudokuSize;i++){
+            for(int j=0;j<sudokuSize;j++){
                 if(sudoku[i][j] == 0){
                     axisX = Integer.toString(j);
                     axisY = Integer.toString(i);
@@ -74,7 +73,8 @@ public class SudokuSolver {
     }
 
     public static int[] checkRow(int[][] sudoku, int row, int[] usedNumb){
-        for(int i=0; i<4; i++){
+        int sudokuSize = sudoku[0].length;
+        for(int i=0; i<sudokuSize; i++){
             if(sudoku[row][i] != 0){
                 usedNumb = pushIntArray(usedNumb.length, usedNumb, sudoku[row][i]);
             }
@@ -83,7 +83,8 @@ public class SudokuSolver {
     }
 
     public static int[] checkColumn(int[][] sudoku, int column, int[] usedNumb){
-        for(int i=0; i<4; i++){
+        int sudokuSize = sudoku[0].length;
+        for(int i=0; i<sudokuSize; i++){
             if(sudoku[i][column] != 0){
                 if(!checkSameNumber(usedNumb, sudoku[i][column])){
                     usedNumb = pushIntArray(usedNumb.length, usedNumb, sudoku[i][column]);
@@ -92,8 +93,112 @@ public class SudokuSolver {
         }
         return usedNumb;
     }
+    public static int[] checkBox9s(int[][] sudoku, int row, int column, int[] usedNumb){
+        //First row
+        if(0 <= row && row < 3){
+            if(0 <= column && column < 3){
+                for(int i=0; i<3; i++){
+                    for(int j=0; j<3;j++){
+                        if(sudoku[i][j] != 0)
+                            if(!checkSameNumber(usedNumb, sudoku[i][j])){
+                                usedNumb = pushIntArray(usedNumb.length, usedNumb, sudoku[i][j]);
+                            }
+                    }
+                }
+            }
+            if(3 <= column && column < 6){
+                for(int i=0; i<3; i++){
+                    for(int j=3; j<6;j++){
+                        if(sudoku[i][j] != 0)
+                            if(!checkSameNumber(usedNumb, sudoku[i][j])){
+                                usedNumb = pushIntArray(usedNumb.length, usedNumb, sudoku[i][j]);
+                            }
+                    }
+                }
+            }
+            if(6 <= column && column < 9){
+                for(int i=0; i<3; i++){
+                    for(int j=6; j<9;j++){
+                        if(sudoku[i][j] != 0)
+                            if(!checkSameNumber(usedNumb, sudoku[i][j])){
+                                usedNumb = pushIntArray(usedNumb.length, usedNumb, sudoku[i][j]);
+                            }
+                    }
+                }
+            }
+        }
+        //Second row
+        if(3 <= row && row < 6){
+            if(0 <= column && column < 3){
+                for(int i=3; i<6; i++){
+                    for(int j=0; j<3;j++){
+                        if(sudoku[i][j] != 0)
+                            if(!checkSameNumber(usedNumb, sudoku[i][j])){
+                                usedNumb = pushIntArray(usedNumb.length, usedNumb, sudoku[i][j]);
+                            }
+                    }
+                }
+            }
+            if(3 <= column && column < 6){
+                for(int i=3; i<6; i++){
+                    for(int j=3; j<6;j++){
+                        if(sudoku[i][j] != 0)
+                            if(!checkSameNumber(usedNumb, sudoku[i][j])){
+                                usedNumb = pushIntArray(usedNumb.length, usedNumb, sudoku[i][j]);
+                            }
+                    }
+                }
+            }
+            if(6 <= column && column < 9){
+                for(int i=3; i<6; i++){
+                    for(int j=6; j<9;j++){
+                        if(sudoku[i][j] != 0)
+                            if(!checkSameNumber(usedNumb, sudoku[i][j])){
+                                usedNumb = pushIntArray(usedNumb.length, usedNumb, sudoku[i][j]);
+                            }
+                    }
+                }
+            }
+        }
+        //Third row
+        if(6 <= row && row < 9){
+            if(0 <= column && column < 3){
+                for(int i=6; i<9; i++){
+                    for(int j=0; j<3;j++){
+                        if(sudoku[i][j] != 0)
+                            if(!checkSameNumber(usedNumb, sudoku[i][j])){
+                                usedNumb = pushIntArray(usedNumb.length, usedNumb, sudoku[i][j]);
+                            }
+                    }
+                }
+            }
+            if(3 <= column && column < 6){
+                for(int i=6; i<9; i++){
+                    for(int j=3; j<6;j++){
+                        if(sudoku[i][j] != 0)
+                            if(!checkSameNumber(usedNumb, sudoku[i][j])){
+                                usedNumb = pushIntArray(usedNumb.length, usedNumb, sudoku[i][j]);
+                            }
+                    }
+                }
+            }
+            if(6 <= column && column < 9){
+                for(int i=6; i<9; i++){
+                    for(int j=6; j<9;j++){
+                        if(sudoku[i][j] != 0)
+                            if(!checkSameNumber(usedNumb, sudoku[i][j])){
+                                usedNumb = pushIntArray(usedNumb.length, usedNumb, sudoku[i][j]);
+                            }
+                    }
+                }
+            }
+        }
+        //System.out.println("Checkbox: " + sudoku[1][1]);
+        return usedNumb;
+    }
 
-    public static int[] checkBox(int[][] sudoku, int row, int column, int[] usedNumb){
+    public static int[] checkBox4s(int[][] sudoku, int row, int column, int[] usedNumb){
+        
         if(0 <= row && row <= 1){
             if(0 <= column && column <= 1){
                 for(int i=0; i<=1; i++){
@@ -157,15 +262,14 @@ public class SudokuSolver {
 
             usedNumb = checkRow(sudoku, axisY, usedNumb);
             usedNumb = checkColumn(sudoku, axisX, usedNumb);
-            usedNumb = checkBox(sudoku, axisY, axisX, usedNumb);
+            usedNumb = checkBox9s(sudoku, axisY, axisX, usedNumb);
 
-            for (int numb = 1; numb <= 4; numb++) {
+            for (int numb = 1; numb <= 10; numb++) {
                 correctNumb = numb;
                 if(!checkSameNumber(usedNumb, correctNumb))
                     break;
-            }//sampe sini belum masukin ke array
+            }
             sudoku[axisY][axisX] = correctNumb;
-            System.out.println(correctNumb);
 
         }
         //System.out.println("number: "+sudoku[2][3]);
@@ -175,15 +279,42 @@ public class SudokuSolver {
 
     public static void main (String[] args){
         int[][] sudoku = {
-                {1, 0, 0, 4},
-                {0, 2, 1, 0},
-                {3, 0, 0, 2},
-                {2, 0, 3, 0}
+                {0, 0, 0, 0, 0, 0, 2, 0, 0},
+                {0, 8, 0, 0, 0, 7, 0, 9, 0},
+                {6, 0, 2, 0, 0, 0, 5, 0, 0},
+                {0, 7, 0, 0, 6, 0, 0, 0, 0},
+                {0, 0, 0, 9, 0, 1, 0, 0, 0},
+                {0, 0, 0, 0, 2, 0, 0, 4, 0},
+                {0, 0, 5, 0, 0, 0, 6, 0, 3},
+                {0, 9, 0, 4, 0, 0, 0, 7, 0},
+                {0, 0, 6, 0, 0, 0, 0, 0, 0},
+        };
+        int[][] sudokuZ = {
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0},
+        };
+        int[][] sudokuX = {
+            {5, 3, 0, 0, 7, 0, 0, 0, 0},
+            {6, 0, 0, 1, 9, 5, 0, 0, 0},
+            {0, 9, 8, 0, 0, 0, 0, 6, 0},
+            {8, 0, 0, 0, 6, 0, 0, 0, 3},
+            {4, 0, 0, 8, 0, 3, 0, 0, 1},
+            {7, 0, 0, 0, 2, 0, 0, 0, 6},
+            {0, 6, 0, 0, 0, 0, 2, 8, 0},
+            {0, 0, 0, 4, 1, 9, 0, 0, 5},
+            {0, 0, 0, 0, 8, 0, 0, 7, 9},
         };
         //System.out.println(sudoku[0][0]);
-        sudoku = solver(sudoku);
+        sudokuX = solver(sudokuX);
         // Loop through all rows
-        for (int[] row : sudoku)
+        for (int[] row : sudokuX)
 
             // converting each row as string
             // and then printing in a separate line
