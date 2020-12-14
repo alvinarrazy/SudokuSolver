@@ -159,7 +159,7 @@ public class SudokuSolver {
             usedNumb = checkColumn(sudoku, axisX, usedNumb);
             usedNumb = checkBox(sudoku, axisY, axisX, usedNumb);
 
-            for (int numb = 1; numb <= 4; numb++) {
+            for (int numb = 1; numb <= 5; numb++) {
                 correctNumb = numb;
                 if(!checkSameNumber(usedNumb, correctNumb))
                     break;
