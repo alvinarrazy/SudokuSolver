@@ -174,11 +174,17 @@ public class SudokuSolver {
     }
 
     public static void main (String[] args){
+        /*int[][] sudoku = {
+                {0, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0},
+                {0, 0, 0, 0}
+        };*/
         int[][] sudoku = {
-                {1, 0, 0, 4},
-                {0, 2, 1, 0},
-                {3, 0, 0, 2},
-                {2, 0, 3, 0}
+                {0, 3, 4, 0},
+                {4, 0, 0, 2},
+                {1, 0, 0, 3},
+                {0, 2, 1, 0}
         };
         //System.out.println(sudoku[0][0]);
         sudoku = solver(sudoku);
