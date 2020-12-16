@@ -249,8 +249,10 @@ public class SudokuSolver {
 
     public static int[][] solver(int[][] sudoku){
         String[] emptySlots = findEmptySlots(sudoku);
-
-        for(int i=0; i< emptySlots.length;i++) {
+        //for(String slot : emptySlots)
+        //    System.out.println(slot);
+        int i = 0;
+        while(i < emptySlots.length){
 
             int [] usedNumb = {};
             int axisX;
@@ -269,9 +271,62 @@ public class SudokuSolver {
                 if(!checkSameNumber(usedNumb, correctNumb))
                     break;
             }
-            sudoku[axisY][axisX] = correctNumb;
+            if(correctNumb == 10){
+                //System.out.println("ketemu 10");
+                if(i > 0){
+                    sudoku[axisY][axisX] = 0;
+                    i = i - 1;
+                }
+                else{
+                    sudoku[axisY][axisX] = 0;
+                    i = 0;
+                }
+                correctNumb = 0;
+                continue;
+            }else{
+                sudoku[axisY][axisX] = correctNumb;
+                i = i+1;
+            }
+            //sudoku[axisY][axisX] = correctNumb;
 
         }
+
+
+        /*for(int i=0; i< emptySlots.length;i++) {
+
+            int [] usedNumb = {};
+            int axisX;
+            int axisY;
+            int correctNumb = 0;
+
+            axisY = Integer.parseInt(emptySlots[i].split("", 2)[0]);
+            axisX = Integer.parseInt(emptySlots[i].split("", 2)[1]);
+
+            usedNumb = checkRow(sudoku, axisY, usedNumb);
+            usedNumb = checkColumn(sudoku, axisX, usedNumb);
+            usedNumb = checkBox9s(sudoku, axisY, axisX, usedNumb);
+
+            for (int numb = 1; numb <= 10; numb++) {
+                correctNumb = numb;
+                if(!checkSameNumber(usedNumb, correctNumb))
+                    break;
+            }
+            if(correctNumb == 10){
+                //System.out.println("ketemu 10");
+                if(i > 0){
+                    i = i - 1;
+                }
+                else{
+                    i = 0;
+                }
+                correctNumb = 0;
+                continue;
+            }else{
+                sudoku[axisY][axisX] = correctNumb;
+            }
+            //sudoku[axisY][axisX] = correctNumb;
+
+        }*/
         //System.out.println("number: "+sudoku[2][3]);
 
         return sudoku;
@@ -312,9 +367,9 @@ public class SudokuSolver {
             {0, 0, 0, 0, 8, 0, 0, 7, 9},
         };
         //System.out.println(sudoku[0][0]);
-        sudokuX = solver(sudokuX);
+        sudokuZ = solver(sudokuZ);
         // Loop through all rows
-        for (int[] row : sudokuX)
+        for (int[] row : sudokuZ)
 
             // converting each row as string
             // and then printing in a separate line
